@@ -1,0 +1,909 @@
+/* --- Global Reset & Custom Properties --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-color: #f8f9fa;
+    --text-color: #212529;
+    --primary-color: #0d6efd;
+    --primary-hover: #0b5ed7;
+    --secondary-color: #495057;
+    --card-bg: #ffffff;
+    --focus-ring: #dc3545;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Helper class to visually hide elements (like screenreader options or checkboxes) */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* --- Pure CSS High Contrast Logic --- */
+/* When the hidden checkbox is checked, update variables inside the wrapper */
+#contrast-toggle:checked ~ .page-wrapper {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+    --primary-color: #ffff00; /* Accessible High-Contrast Yellow */
+    --primary-hover: #dddd00;
+    --secondary-color: #ffffff;
+    --card-bg: #1c1c1c;
+    --focus-ring: #00ffff;
+}
+
+/* Button override for High Contrast Mode text color */
+#contrast-toggle:checked ~ .page-wrapper .btn-primary {
+    color: #000000;
+}
+#contrast-toggle:checked ~ .page-wrapper .card {
+    border: 2px solid #ffffff;
+}
+
+/* --- Accessibility Focus States --- */
+button:focus, a:focus, .contrast-label:focus {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 4px;
+}
+
+/* Skip to main content link */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 10px;
+    background: var(--focus-ring);
+    color: white;
+    padding: 10px 20px;
+    z-index: 100;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+}
+.skip-link:focus {
+    top: 10px;
+}
+
+/* Accessibility Utility Bar styling */
+.accessibility-bar {
+    background: #212529;
+    padding: 12px;
+    text-align: right;
+}
+.contrast-label {
+    display: inline-block;
+    background: #ffffff;
+    color: #212529;
+    padding: 6px 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* --- Layout & Typography --- */
+header {
+    background-color: var(--card-bg);
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+    padding: 20px 0;
+}
+.header-container, .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+.logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--text-color);
+}
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    align-items: center;
+}
+nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Hero Section */
+.hero {
+    padding: 80px 20px;
+    text-align: center;
+    background: linear-gradient(rgba(13, 110, 253, 0.05), rgba(13, 110, 253, 0.1));
+}
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+.hero p {
+    font-size: 1.25rem;
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 2px solid var(--secondary-color);
+    margin-left: 10px;
+}
+
+/* Features Grid */
+.features {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+.card {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+.card .icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 15px;
+}
+.card h3 {
+    margin-bottom: 15px;
+}
+
+/* Footer */
+footer {
+    background-color: #212529;
+    color: #ffffff;
+    padding: 40px 0;
+    margin-top: 60px;
+}
+footer nav a {
+    color: #cccccc;
+    text-decoration: none;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .btn-secondary {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    .cta-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+/* --- Login & Sign Up Additions --- */
+.nav-link-login {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.nav-link-login:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Ensure the layout looks perfect in High Contrast Mode */
+#contrast-toggle:checked ~ .page-wrapper .nav-link-login:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    text-decoration: underline;
+}
+
+/* Button spacing adjustments for responsive viewports */
+@media (max-width: 768px) {
+    nav ul {
+        width: 100%;
+        text-align: center;
+    }
+    .nav-link-login {
+        display: block;
+        margin-bottom: 5px;
+    }
+    nav ul li {
+        width: 100%;
+    }
+    nav .btn {
+        display: block;
+        text-align: center;
+    }
+}
+/* --- Sign Up Form Specific Styling --- */
+
+/* Centering the form section inside main layout */
+.form-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    background: linear-gradient(rgba(13, 110, 253, 0.02), rgba(13, 110, 253, 0.05));
+}
+
+.form-container {
+    background-color: var(--card-bg);
+    max-width: 500px;
+    width: 100%;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.form-container h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.form-subheading {
+    text-align: center;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+    font-size: 1rem;
+}
+
+/* Individual form controls */
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1rem;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 6px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: border-color 0.2s ease;
+}
+
+/* Accessible styling for input fields upon navigation focus */
+.form-group input:focus,
+.form-group select:focus {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+}
+
+.form-hint {
+    font-size: 0.85rem;
+    color: var(--secondary-color);
+}
+
+/* Checkbox alignment adjustments */
+.form-group-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 5px;
+}
+
+.form-group-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-top: 3px;
+    cursor: pointer;
+}
+
+.form-group-checkbox label {
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.form-group-checkbox a {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.form-submit-btn {
+    width: 100%;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    text-align: center;
+    padding: 14px;
+    margin-top: 10px;
+}
+
+.form-footer {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.95rem;
+}
+
+.form-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+/* --- High Contrast Mode Tweaks for Form Components --- */
+#contrast-toggle:checked ~ .page-wrapper .form-container {
+    border: 2px solid #ffffff;
+}
+
+#contrast-toggle:checked ~ .page-wrapper .form-group input,
+#contrast-toggle:checked ~ .page-wrapper .form-group select {
+    border: 2px solid #ffffff;
+}
+
+#contrast-toggle:checked ~ .page-wrapper .form-group-checkbox a,
+#contrast-toggle:checked ~ .page-wrapper .form-footer a {
+    color: var(--primary-color); /* Translates to Yellow in HC mode */
+    text-decoration: underline;
+}
+
+/* Mobile Responsiveness for Forms */
+@media (max-width: 480px) {
+    .form-container {
+        padding: 25px 15px;
+    }
+}
+/*trainer page styles */
+
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #198754;
+    --dark-bg: #111827;
+    --light-bg: #f9fafb;
+    --text-color: #1f2937;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-image: url('pngtree-black-gym-with-heavy-weights-picture-image_2773823.jpg');
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+#oops {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.50);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.logo span {
+    color: var(--primary-color);
+}
+
+.navbar nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    margin-left: 1.5rem;
+    font-weight: 500;
+}
+
+.hero {
+    text-align: center;
+    padding: 5rem 1rem;
+    background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+    background-image: url('pngtree-black-gym-with-heavy-weights-picture-image_2773823.jpg');
+    color:hsl(356, 97%, 48%);
+    background-size: cover;
+    background-position: center;
+}
+
+.hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: #1e3a8a;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-primary, .btn-secondary, .btn-book {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-book {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-primary:hover, .btn-book:hover {
+    opacity: 0.9;
+}
+
+.platform-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+    gap: 2rem;
+}
+
+.filters-sidebar {
+    flex: 1;
+    background-image: url('hllll.webp');
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    height: fit-content;
+    font-weight: bold;
+}
+
+.filters-sidebar h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #edf2f7;
+    padding-bottom: 0.5rem;
+}
+
+.filter-group {
+    margin-bottom: 1.5rem;
+}
+
+.filter-group h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #4b5563;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.results-layout {
+    flex: 3;
+    color: aquamarine;
+}
+
+.results-layout h2 {
+    margin-bottom: 1.5rem;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-top: 4px solid var(--primary-color);
+}
+
+.card-badge {
+    background-color:white;
+    color: var(--primary-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    width: fit-content;
+    margin-bottom: 0.75rem;
+}
+
+.card h3 {
+    margin-bottom: 0.25rem;
+}
+
+.instructor {
+    font-style: italic;
+    color: #6b7280;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.description {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    color: #76acf9;
+}
+
+/* Tags styles */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.tag {
+    background-color: #f3f4f6;
+    color: #374151;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 20px;
+    border: 1px solid #e5e7eb;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--dark-bg);
+    color: white;
+    margin-top: 4rem;
+}
+
+/* --- Responsive Adaptability --- */
+@media (max-width: 768px) {
+    .platform-container {
+        flex-direction: column;
+    }
+    
+    .navbar {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+/* --- Booking Workspace Form Layouts --- */
+.booking-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+    background: linear-gradient(rgba(13, 110, 253, 0.02), rgba(13, 110, 253, 0.04));
+}
+
+.booking-container {
+    
+    background-color: rgba(6, 174, 171, 0.832); 
+    max-width: 650px;
+    width: 100%;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.booking-container h1 {
+    font-size: 2.1rem;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.booking-subheading {
+    text-align: center;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+}
+
+/* Selected Trainer Box Context Header */
+.selected-trainer-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: var(--bg-color);
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    border-left: 5px solid var(--primary-color);
+}
+
+.selected-trainer-card h2 {
+    font-size: 1.15rem;
+    margin-bottom: 2px;
+}
+
+.selected-trainer-card p {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.avatar-sm {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+/* Modular Fieldset Components */
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.form-fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.form-fieldset legend {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.fieldset-hint {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    margin-bottom: 12px;
+}
+
+/* Radio Choice Card Stack */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: var(--bg-color);
+    transition: background-color 0.2s;
+}
+
+.radio-label:hover {
+    background-color: rgba(13, 110, 253, 0.03);
+}
+
+.radio-label input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    accent-color: var(--primary-color);
+}
+
+.radio-label strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 2px;
+}
+
+.radio-label span {
+    display: block;
+    font-size: 0.88rem;
+    color: var(--secondary-color);
+}
+
+/* Form inputs & grid structures */
+.datetime-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.booking-form textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 6px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    resize: vertical;
+    font-family: inherit;
+}
+
+.booking-form textarea:focus {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+}
+
+.checkbox-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.checkbox-stack label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.checkbox-stack input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-color);
+}
+
+.booking-submit-btn {
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1.1rem;
+    padding: 15px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* --- High Contrast Specifics --- */
+#contrast-toggle:checked ~ .page-wrapper .booking-container {
+    border: 2px solid #ffffff;
+}
+
+#contrast-toggle:checked ~ .page-wrapper .selected-trainer-card {
+    border: 2px solid #ffffff;
+    border-left: 6px solid var(--primary-color);
+}
+
+#contrast-toggle:checked ~ .page-wrapper .radio-label {
+    border: 2px solid #ffffff;
+}
+
+#contrast-toggle:checked ~ .page-wrapper .booking-form textarea {
+    border: 2px solid #ffffff;
+}
+
+/* Responsive Adaptive Viewports */
+@media (max-width: 600px) {
+    .booking-container {
+        padding: 25px 15px;
+    }
+    .datetime-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
+/* --- Log In Form Additions --- */
+.password-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.forgot-password-link {
+    font-size: 0.88rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.forgot-password-link:hover {
+    text-decoration: underline;
+}
+
+/* High Contrast state optimization */
+#contrast-toggle:checked ~ .page-wrapper .forgot-password-link {
+    color: var(--primary-color); /* Turns yellow */
+    text-decoration: underline;
+}

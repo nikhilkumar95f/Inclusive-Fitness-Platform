@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Session | EmpowerFit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- CSS-Only High Contrast Toggle Trigger -->
+    <input type="checkbox" id="contrast-toggle" class="visually-hidden">
+
+    <!-- Main Wrapper -->
+    <div class="page-wrapper">
+
+        <!-- Skip Link -->
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <!-- Accessibility Utility Bar -->
+        <div class="accessibility-bar" role="region" aria-label="Accessibility Tools">
+            <label for="contrast-toggle" class="contrast-label" tabindex="0" role="button">
+                Toggle High Contrast Mode
+            </label>
+        </div>
+
+        <!-- Header -->
+        <header>
+            <div class="header-container">
+                <div class="logo">
+                    <a href="index.html" aria-label="EmpowerFit Home">EmpowerFit</a>
+                </div>
+                <nav aria-label="Main Navigation">
+                    <ul>
+                        <li><a href="index.html#workouts">Workouts</a></li>
+                        <li><a href="trainers.html">Our Trainers</a></li>
+                        <li><a href="index.html#community">Community</a></li>
+                        <li><a href="signup.html" class="btn btn-primary">Sign Up</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main id="main-content" class="booking-main">
+            <section class="booking-container" aria-labelledby="booking-heading">
+                
+                <h1 id="booking-heading">Schedule Your Session</h1>
+                <p class="booking-subheading">Select your preferences below to customize your inclusive 1-on-1 fitness experience.</p>
+
+                
+
+                <form action="#" method="POST" class="booking-form">
+                    
+                    <!-- Step 1: Session Format -->
+                    <fieldset class="form-fieldset">
+                        <legend>1. Choose Session Format</legend>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="format" value="live-video" checked>
+                                <div>
+                                    <strong>Live Interactive Video</strong>
+                                    <span>Real-time feedback with adaptive adjustment modifications.</span>
+                                </div>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="format" value="audio-only">
+                                <div>
+                                    <strong>Audio-Only Guidance</strong>
+                                    <span>Detailed verbal coaching without any camera dependencies.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <!-- Step 2: Select Date & Time -->
+                    <fieldset class="form-fieldset">
+                        <legend>2. Date and Time</legend>
+                        <div class="datetime-grid">
+                            <div class="form-group">
+                                <label for="booking-date">Choose Date</label>
+                                <input type="date" id="booking-date" name="date" required min="2026-07-05">
+                            </div>
+                            <div class="form-group">
+                                <label for="booking-time">Available Slots</label>
+                                <select id="booking-time" name="time" required>
+                                    <option value="" disabled selected>Select a time...</option>
+                                    <option value="09:00">09:00 AM (EST)</option>
+                                    <option value="11:30">11:30 AM (EST)</option>
+                                    <option value="14:00">02:00 PM (EST)</option>
+                                    <option value="16:30">04:30 PM (EST)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Step 3: Accessibility Support Requests -->
+                    <fieldset class="form-fieldset">
+                        <legend>3. Dynamic Accommodations (Optional)</legend>
+                        <p class="fieldset-hint" id="accom-hint">Help your trainer prepare setup arrangements ahead of time.</p>
+                        <div class="checkbox-stack" aria-describedby="accom-hint">
+                            <label>
+                                <input type="checkbox" name="accommodations" value="asl-interpreter"> 
+                                Request ASL Interpreter overlay
+                            </label>
+                            <label>
+                                <input type="checkbox" name="accommodations" value="visual-captions"> 
+                                Enable real-time automated transcription feed
+                            </label>
+                            <label>
+                                <input type="checkbox" name="accommodations" value="no-music"> 
+                                Keep background tracks muted entirely (Low-Sensory mode)
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <!-- Step 4: Notes to Trainer -->
+                    <div class="form-group">
+                        <label for="trainer-notes">Notes or specific health priorities (Optional)</label>
+                        <textarea id="trainer-notes" name="notes" rows="4" placeholder="e.g., Working through right shoulder recovery, prefer seated alternatives..."></textarea>
+                    </div>
+
+                    <!-- Booking Action Button -->
+                    <button type="submit" class="btn btn-primary booking-submit-btn">Confirm Appointment Reservation</button>
+                </form>
+
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-container">
+                <p>&copy; 2026 EmpowerFit Platform. All rights reserved.</p>
+                <nav aria-label="Footer Navigation">
+                    <a href="#privacy">Privacy Policy</a> | 
+                    <a href="#accessibility-statement">Accessibility Statement</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+</body>
+</html>
