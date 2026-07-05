@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | EmpowerFit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- CSS-Only High Contrast Toggle Trigger -->
+    <input type="checkbox" id="contrast-toggle" class="visually-hidden">
+
+    <!-- Main Wrapper -->
+    <div class="page-wrapper">
+
+        <!-- Skip Link -->
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <!-- Accessibility Utility Bar -->
+        <div class="accessibility-bar" role="region" aria-label="Accessibility Tools">
+            <label for="contrast-toggle" class="contrast-label" tabindex="0" role="button">
+                Toggle High Contrast Mode
+            </label>
+        </div>
+
+        <!-- Header -->
+        <header>
+            <div class="header-container">
+                <div class="logo">
+                    <a href="index.html" aria-label="EmpowerFit Home">EmpowerFit</a>
+                </div>
+                <nav aria-label="Main Navigation">
+                    <ul>
+                        <li><a href="index.html#workouts">Workouts</a></li>
+                        <li><a href="index.html#trainers">Our Trainers</a></li>
+                        <li><a href="index.html#login" class="nav-link-login">Log In</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main id="main-content" class="form-main">
+            <section class="form-container" aria-labelledby="signup-heading">
+                <h1 id="signup-heading">Create Your Account</h1>
+                <p class="form-subheading">Join a community built for every body and every ability.</p>
+
+                <form action="#" method="POST" class="signup-form">
+                    
+                    <!-- Full Name Field -->
+                    <div class="form-group">
+                        <label for="full-name">Full Name</label>
+                        <input type="text" id="full-name" name="name" autocomplete="name" required placeholder="e.g., Alex Morgan">
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" autocomplete="email" required placeholder="name@example.com">
+                    </div>
+
+                    <!-- Password Field with requirements info for accessibility -->
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" autocomplete="new-password" required aria-describedby="password-hint">
+                        <span id="password-hint" class="form-hint">Must be at least 8 characters long and include a number.</span>
+                    </div>
+
+                    <!-- Accessibility / Routine Customization Preference (Optional) -->
+                    <div class="form-group">
+                        <label for="workout-pref">What styles of routine are you looking for? (Optional)</label>
+                        <select id="workout-pref" name="preference">
+                            <option value="" disabled selected>Select an option...</option>
+                            <option value="seated">Seated / Wheelchair-friendly workouts</option>
+                            <option value="low-impact">Low-impact / Joint-friendly movements</option>
+                            <option value="sensory-calm">Low-sensory / Neurodivergent-friendly calm sessions</option>
+                            <option value="full-mobility">Full-mobility / High-intensity routines</option>
+                            <option value="not-sure">I'd like to explore everything</option>
+                        </select>
+                    </div>
+
+                    <!-- Terms Accordance Checkbox -->
+                    <div class="form-group-checkbox">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">I agree to the <a href="#terms-link">Terms of Service</a> and acknowledge the <a href="#privacy-link">Privacy Policy</a>.</label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary form-submit-btn">Get Started</button>
+                </form>
+
+                <div class="form-footer">
+                    <p>Already have an account? <a href="#login">Log in here</a></p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-container">
+                <p>&copy; 2026 EmpowerFit Platform. All rights reserved.</p>
+                <nav aria-label="Footer Navigation">
+                    <a href="#privacy">Privacy Policy</a> | 
+                    <a href="#accessibility-statement">Accessibility Statement</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+</body>
+</html>

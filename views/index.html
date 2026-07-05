@@ -1,7 +1,88 @@
 <!DOCTYPE html>
-<html>
-<head><title>Inclusive Fitness Platform</title></head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmpowerFit | Inclusive & Accessible Fitness</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
-    <h1>Welcome!</h1>
+    <!-- Header & Navigation -->
+<header>
+    <div class="header-container">
+        <div class="logo">
+            <a href="#" aria-label="EmpowerFit Home">EmpowerFit</a>
+        </div>
+        <nav aria-label="Main Navigation">
+            <ul>
+                <li><a href="#workouts">Workouts</a></li>
+                <li><a href="#trainers">Our Trainers</a></li>
+                <li><a href="#community">Community</a></li>
+                <!-- New Login & Sign Up Options -->
+                <li><a href="#login" class="nav-link-login">Log In</a></li>
+                <li><a href="#signup" class="btn btn-primary"><span aria-hidden="true">👤</span> Sign Up</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+    <input type="checkbox" id="contrast-toggle" class="visually-hidden">
+
+    <div class="page-wrapper">
+
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <div class="accessibility-bar" role="region" aria-label="Accessibility Tools">
+            <label for="contrast-toggle" class="contrast-label" tabindex="0" role="button">
+                Toggle High Contrast Mode
+            </label>
+        </div>
+        <main id="main-content">
+            
+            <section class="hero" aria-labelledby="hero-heading">
+                <div class="hero-content">
+                    <h1 id="hero-heading">Fitness for Every Body, Every Ability.</h1>
+                    <p>Adaptive workouts, inclusive community, and expert trainers dedicated to making fitness accessible to absolutely everyone.</p>
+                    <div class="cta-group">
+                        <a href="#workouts" class="btn btn-primary">Explore Workouts</a>
+                        <a href="#about" class="btn btn-secondary">Learn Our Philosophy</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features" id="features" aria-labelledby="features-heading">
+                <h2 id="features-heading" class="section-title">Built for Everyone</h2>
+                <div class="grid">
+                    <div class="card">
+                        <span class="icon" aria-hidden="true">♿</span>
+                        <h3>Adaptive Routines</h3>
+                        <p>Workouts tailored for seated, low-impact, or full-mobility preferences. Filter by your energy or physical needs.</p>
+                    </div>
+                    <div class="card">
+                        <span class="icon" aria-hidden="true">🧏</span>
+                        <h3>Fully Accessible Media</h3>
+                        <p>All video content includes human-verified closed captions, audio descriptions, and American Sign Language (ASL) overlays.</p>
+                    </div>
+                    <div class="card">
+                        <span class="icon" aria-hidden="true">🧠</span>
+                        <h3>Neurodivergent Friendly</h3>
+                        <p>Choose from high-energy sessions or calm, low-sensory environments with no sudden loud noises or flashing lights.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <div class="footer-container">
+                <p>&copy; 2026 EmpowerFit Platform. All rights reserved.</p>
+                <nav aria-label="Footer Navigation">
+                    <a href="#privacy">Privacy Policy</a> | 
+                    <a href="#accessibility-statement">Accessibility Statement</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
 </body>
 </html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In | EmpowerFit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <input type="checkbox" id="contrast-toggle" class="visually-hidden">
+
+    <div class="page-wrapper">
+
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <div class="accessibility-bar" role="region" aria-label="Accessibility Tools">
+            <label for="contrast-toggle" class="contrast-label" tabindex="0" role="button">
+                Toggle High Contrast Mode
+            </label>
+        </div>
+
+        <header>
+            <div class="header-container">
+                <div class="logo">
+                    <a href="index.html" aria-label="EmpowerFit Home">EmpowerFit</a>
+                </div>
+                <nav aria-label="Main Navigation">
+                    <ul>
+                        <li><a href="index.html#workouts">Workouts</a></li>
+                        <li><a href="trainers.html">Our Trainers</a></li>
+                        <li><a href="signup.html" class="btn btn-primary">Sign Up</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main id="main-content" class="form-main">
+            <section class="form-container" aria-labelledby="login-heading">
+                <h1 id="login-heading">Welcome Back</h1>
+                <p class="form-subheading">Log in to access your adaptive routines and dashboard.</p>
+
+                <form action="#" method="POST" class="signup-form">
+                    
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" name="email" autocomplete="email" required placeholder="name@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <div class="password-label-row">
+                            <label for="login-password">Password</label>
+                            <a href="#forgot-password" class="forgot-password-link">Forgot Password?</a>
+                        </div>
+                        <input type="password" id="login-password" name="password" autocomplete="current-password" required>
+                    </div>
+
+                    <div class="form-group-checkbox">
+                        <input type="checkbox" id="remember-me" name="remember">
+                        <label for="remember-me">Keep me logged in on this device</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary form-submit-btn">Log In</button>
+                </form>
+
+                <div class="form-footer">
+                    <p>New to EmpowerFit? <a href="signup.html">Create an account here</a></p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-container">
+                <p>&copy; 2026 EmpowerFit Platform. All rights reserved.</p>
+                <nav aria-label="Footer Navigation">
+                    <a href="#privacy">Privacy Policy</a> | 
+                    <a href="#accessibility-statement">Accessibility Statement</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+</body>
+</html>
