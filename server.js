@@ -91,3 +91,17 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
+
+const bookingRoutes = require("./routes/booking");
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/booking", bookingRoutes);
+
+const trainerRoutes = require("./routes/trainers");
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/trainers", trainerRoutes);
