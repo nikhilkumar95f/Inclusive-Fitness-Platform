@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EmpowerFit | Inclusive Fitness Finder</title>
-    <link rel="stylesheet" href="hello.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header class="navbar">
-        <div class="logo">Empower<span>Fit</span></div> 
+        <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">Empower<span>Fit</span></a></div> 
         <nav>
-            <a href="#explore">Explore</a>
-            <a href="#features">Accessibility Info</a>
-            <a href="#" class="btn-secondary">Join as Trainer</a>
+            <a href="index.html#workouts">Explore</a>
+            <a href="index.html#features">Accessibility Info</a>
+            <a href="join-trainer.html" class="btn-secondary">Join as Trainer</a>
         </nav>
     </header>
 
@@ -57,51 +57,13 @@
             <section class="results-layout">
                 <h2>Available Classes & Trainers</h2>
                 
-                <div class="grid-container">
-                    <article class="card" style="background-color: rgba(0, 0, 0, 0.50);">
-                        <div class="card-badge">Adaptive Yoga</div>
-                        <h3>Gentle Seated Yoga Flow</h3>
-                        <p class="instructor">with Trainer Sarah</p>
-                        <p class="description">A restorative session focusing on flexibility and breathwork. Fully compatible with wheelchairs and chairs.</p>
-                        <div class="tags">
-                            <span class="tag">Wheelchair Access</span>
-                            <span class="tag">Low Sensory</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">$15 / class</span>
-                            <button class="btn-book">Book Slot</button>
-                        </div>
-                    </article>
+                <div class="search-container" style="margin-bottom: 20px;">
+                    <label for="trainerSearch" class="visually-hidden">Search Trainers</label>
+                    <input type="text" id="trainerSearch" placeholder="Search trainers by name or specialty..." style="width: 100%; padding: 12px; font-size: 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background-color: rgba(0,0,0,0.3); color: white;">
+                </div>
 
-                    <article class="card" style="background-color: rgba(0, 0, 0, 0.50);">
-                        <div class="card-badge">Strength</div>
-                        <h3>Inclusive HIIT Training</h3>
-                        <p class="instructor">with Trainer Alex (Deaf-friendly)</p>
-                        <p class="description">High energy strength training. The instructor communicates fluently in ASL and uses visual cues.</p>
-                        <div class="tags">
-                            <span class="tag">ASL Certified</span>
-                            <span class="tag">Visual Cues</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">$25 / class</span>
-                            <button class="btn-book">Book Slot</button>
-                        </div>
-                    </article>
-
-                    <article class="card" style="background-color: rgba(0, 0, 0, 0.50);">
-                        <div class="card-badge">Mobility</div>
-                        <h3>Neuro-Diverse Movement</h3>
-                        <p class="instructor">with Cosmic Fitness</p>
-                        <p class="description">A fun, low-pressure movement group class designed specifically for neurodivergent individuals.</p>
-                        <div class="tags">
-                            <span class="tag">No Loud Music</span>
-                            <span class="tag">Structure Provided</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">Free/Donation</span>
-                            <button class="btn-book">Book Slot</button>
-                        </div>
-                    </article>
+                <div class="grid-container" id="trainers-grid">
+                    <p id="trainers-loading" style="color:aquamarine; font-size:1rem; padding:20px;">Loading trainers...</p>
                 </div>
             </section>
 
@@ -109,8 +71,15 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 AccessFit. Empowering health without barriers.</p>
+        <div class="footer-container">
+            <p>&copy; 2026 EmpowerFit Platform. All rights reserved.</p>
+            <nav aria-label="Footer Navigation">
+                <a href="#privacy" style="color:#ccc;">Privacy Policy</a> |
+                <a href="#accessibility-statement" style="color:#ccc;">Accessibility Statement</a>
+            </nav>
+        </div>
     </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>

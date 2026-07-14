@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join as Trainer | EmpowerFit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- CSS-Only High Contrast Toggle Trigger -->
+    <input type="checkbox" id="contrast-toggle" class="visually-hidden">
+
+    <!-- Main Wrapper -->
+    <div class="page-wrapper">
+
+        <!-- Skip Link -->
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <!-- Accessibility Utility Bar -->
+        <div class="accessibility-bar" role="region" aria-label="Accessibility Tools">
+            <label for="contrast-toggle" class="contrast-label" tabindex="0" role="button">
+                Toggle High Contrast Mode
+            </label>
+        </div>
+
+        <!-- Header -->
+        <header>
+            <div class="header-container">
+                <div class="logo">
+                    <a href="index.html" aria-label="EmpowerFit Home">EmpowerFit</a>
+                </div>
+                <nav aria-label="Main Navigation">
+                    <ul>
+                        <li><a href="index.html#workouts">Workouts</a></li>
+                        <li><a href="trainers.html">Our Trainers</a></li>
+                        <li><a href="login.html" class="nav-link-login">Log In</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main id="main-content" class="form-main">
+            <section class="form-container" aria-labelledby="join-heading">
+                <h1 id="join-heading">Become a Trainer</h1>
+                <p class="form-subheading">Share your expertise and build inclusive fitness routines for everyone.</p>
+
+                <form id="joinTrainerForm" class="signup-form">
+                    
+                    <!-- Full Name Field -->
+                    <div class="form-group">
+                        <label for="trainer-name">Full Name</label>
+                        <input type="text" id="trainer-name" name="name" required placeholder="e.g., Jane Doe">
+                    </div>
+
+                    <!-- Specialization Field -->
+                    <div class="form-group">
+                        <label for="trainer-specialization">Specialization</label>
+                        <input type="text" id="trainer-specialization" name="specialization" required placeholder="e.g., Adaptive Yoga, Deaf-friendly HIIT">
+                    </div>
+
+                    <!-- Years of Experience Field -->
+                    <div class="form-group">
+                        <label for="trainer-experience">Years of Experience</label>
+                        <input type="number" id="trainer-experience" name="experience" min="0" required placeholder="e.g., 5">
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="trainer-email">Email Address</label>
+                        <input type="email" id="trainer-email" name="email" required placeholder="name@example.com">
+                    </div>
+
+                    <!-- Phone Field -->
+                    <div class="form-group">
+                        <label for="trainer-phone">Phone Number</label>
+                        <input type="tel" id="trainer-phone" name="phone" required placeholder="e.g., 123-456-7890">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary form-submit-btn">Submit Application</button>
+                </form>
+
+                <div class="form-footer">
+                    <a href="index.html">&larr; Back to Home</a>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-container">
+                <p>&copy; 2026 EmpowerFit Platform. All rights reserved.</p>
+                <nav aria-label="Footer Navigation">
+                    <a href="#privacy">Privacy Policy</a> | 
+                    <a href="#accessibility-statement">Accessibility Statement</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        document.getElementById('joinTrainerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('trainer-name').value;
+            const specialization = document.getElementById('trainer-specialization').value;
+            const experience = document.getElementById('trainer-experience').value;
+            const email = document.getElementById('trainer-email').value;
+            const phone = document.getElementById('trainer-phone').value;
+
+            const payload = {
+                name,
+                specialization,
+                experience: parseInt(experience, 10),
+                email,
+                phone
+            };
+
+            fetch('/trainers', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Application Submitted Successfully! Welcome aboard.');
+                    window.location.href = 'trainers.html';
+                } else {
+                    alert('Application Failed: ' + data.message);
+                }
+            })
+            .catch(err => {
+                console.error('Error submitting trainer form:', err);
+                alert('An error occurred during submission. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html>

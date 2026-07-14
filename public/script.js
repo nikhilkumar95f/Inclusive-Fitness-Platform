@@ -129,58 +129,196 @@ if (emailInput) {
 }
 
 // ================================
+// Dynamically Render Trainers
+// ================================
+const trainersGrid = document.getElementById("trainers-grid");
+if (trainersGrid) {
+    const renderTrainers = (trainersList) => {
+        trainersGrid.innerHTML = "";
+        trainersList.forEach(trainer => {
+            let price = "$20 / class";
+            let desc = "Personalized adaptive fitness session customized to your needs and goals.";
+            let tags = ["Accessible", "Adaptive"];
+            let badge = trainer.specialization;
+
+            if (trainer.name.toLowerCase().includes("sarah")) {
+                price = "$15 / class";
+                desc = "A restorative session focusing on flexibility and breathwork. Fully compatible with wheelchairs and chairs.";
+                tags = ["Wheelchair Access", "Low Sensory"];
+                badge = "Adaptive Yoga";
+            } else if (trainer.name.toLowerCase().includes("alex")) {
+                price = "$25 / class";
+                desc = "High energy strength training. The instructor communicates fluently in ASL and uses visual cues.";
+                tags = ["ASL Certified", "Visual Cues"];
+                badge = "Strength";
+            } else if (trainer.name.toLowerCase().includes("cosmic")) {
+                price = "Free/Donation";
+                desc = "A fun, low-pressure movement group class designed specifically for neurodivergent individuals.";
+                tags = ["No Loud Music", "Structure Provided"];
+                badge = "Mobility";
+            }
+
+            const card = document.createElement("article");
+            card.className = "card trainer-card";
+            card.style.backgroundColor = "rgba(0, 0, 0, 0.50)";
+            card.innerHTML = `
+                <div class="card-badge">${badge}</div>
+                <h3>${trainer.name}</h3>
+                <p class="instructor">${trainer.specialization} (${trainer.experience} yrs exp)</p>
+                <p class="description">${desc}</p>
+                <div class="tags">
+                    ${tags.map(t => `<span class="tag">${t}</span>`).join("")}
+                </div>
+                <div class="card-footer">
+                    <span class="price">${price}</span>
+                    <button class="btn-book" onclick="location.href='booking.html?trainer=${encodeURIComponent(trainer.name)}'">Book Slot</button>
+                </div>
+            `;
+            trainersGrid.appendChild(card);
+        });
+    };
+
+    fetch("/trainers")
+        .then(res => res.json())
+        .then(data => {
+            const loadingEl = document.getElementById("trainers-loading");
+            if (loadingEl) loadingEl.remove();
+            if (data.success && data.trainers && data.trainers.length > 0) {
+                renderTrainers(data.trainers);
+            } else {
+                trainersGrid.innerHTML = "<p style='color:aquamarine;padding:20px;'>No trainers available at the moment.</p>";
+            }
+        })
+        .catch(err => {
+            console.error("Error loading trainers:", err);
+            trainersGrid.innerHTML = "<p style='color:tomato;padding:20px;'>Failed to load trainers. Please refresh the page.</p>";
+        });
+}
+
+// ================================
 // Trainer Search
 // ================================
 const search = document.getElementById("trainerSearch");
 
 if (search) {
-
     search.addEventListener("keyup", () => {
-
         const value = search.value.toLowerCase();
-
         document.querySelectorAll(".trainer-card").forEach(card => {
-
             const text = card.textContent.toLowerCase();
-
-            card.style.display =
-                text.includes(value)
-                    ? "block"
-                    : "none";
-
+            card.style.display = text.includes(value) ? "block" : "none";
         });
-
     });
-
 }
 
 // ================================
-// Booking Form
+// Booking Form Pre-fill & AJAX Submit
 // ================================
-const bookingForm =
-    document.getElementById("bookingForm");
+const bookingForm = document.getElementById("bookingForm");
 
 if (bookingForm) {
+    // Set minimum date to today
+    const dateInput = document.getElementById("booking-date");
+    if (dateInput) {
+        const today = new Date().toISOString().split("T")[0];
+        dateInput.min = today;
+    }
 
-    bookingForm.addEventListener("submit", function (e) {
+    // Parse URL for trainer name
+    const params = new URLSearchParams(window.location.search);
+    const trainerParam = params.get("trainer");
+    const trainerSelect = document.getElementById("trainer");
 
-        const date =
-            document.getElementById("date");
+    const updateSelectedTrainerCard = (trainerName) => {
+        const container = document.getElementById("selected-trainer-container");
+        const nameEl = document.getElementById("selected-trainer-name");
+        const specEl = document.getElementById("selected-trainer-specialization");
+        const avatarEl = document.getElementById("trainer-avatar");
 
-        if (date && date.value === "") {
+        if (container && nameEl && specEl && trainerName) {
+            nameEl.textContent = trainerName;
+            avatarEl.textContent = trainerName.charAt(0).toUpperCase();
 
-            e.preventDefault();
+            let spec = "Inclusive Fitness Coach";
+            if (trainerName.toLowerCase().includes("sarah")) spec = "Adaptive Yoga Instructor";
+            else if (trainerName.toLowerCase().includes("alex")) spec = "Deaf-Friendly HIIT Coach";
+            else if (trainerName.toLowerCase().includes("cosmic")) spec = "Neurodivergent Movement Guide";
+            
+            specEl.textContent = spec;
+            container.style.display = "block";
+        } else if (container) {
+            container.style.display = "none";
+        }
+    };
 
-            alert("Please select booking date.");
-
-            return;
-
+    if (trainerSelect) {
+        if (trainerParam) {
+            let found = false;
+            for (let i = 0; i < trainerSelect.options.length; i++) {
+                if (trainerSelect.options[i].value.toLowerCase().includes(trainerParam.toLowerCase()) || 
+                    trainerParam.toLowerCase().includes(trainerSelect.options[i].value.toLowerCase())) {
+                    trainerSelect.selectedIndex = i;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                const opt = document.createElement("option");
+                opt.value = trainerParam;
+                opt.text = trainerParam;
+                opt.selected = true;
+                trainerSelect.appendChild(opt);
+            }
+            updateSelectedTrainerCard(trainerParam);
         }
 
-        alert("Booking Successful!");
+        trainerSelect.addEventListener("change", () => {
+            updateSelectedTrainerCard(trainerSelect.value);
+        });
+    }
 
+    bookingForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const fullName = document.getElementById("fullName").value;
+        const email = document.getElementById("email").value;
+        const trainer = document.getElementById("trainer").value;
+        const bookingDate = document.getElementById("booking-date").value;
+        const bookingTime = document.getElementById("booking-time").value;
+
+        if (!fullName || !email || !trainer || !bookingDate || !bookingTime) {
+            alert("Please fill all required fields.");
+            return;
+        }
+
+        const payload = {
+            fullName,
+            email,
+            trainer,
+            bookingDate,
+            bookingTime
+        };
+
+        fetch("/booking", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                alert("Booking Successful! Reference ID: " + data.bookingId);
+                window.location.href = "index.html";
+            } else {
+                alert("Booking Failed: " + data.message);
+            }
+        })
+        .catch(err => {
+            console.error("Booking error:", err);
+            alert("An error occurred during booking. Please try again.");
+        });
     });
-
 }
 
 // ================================

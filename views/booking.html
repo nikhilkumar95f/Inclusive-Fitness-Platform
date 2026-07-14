@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book a Session | EmpowerFit</title>
-    <link rel="stylesheet" href=" s?ṁtyle.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -35,7 +35,7 @@
                         <li><a href="index.html#workouts">Workouts</a></li>
                         <li><a href="trainers.html">Our Trainers</a></li>
                         <li><a href="index.html#community">Community</a></li>
-                        <li><a href="signup.html" class="btn btn-primary">Sign Up</a></li>
+                        <li><a href="sign-up.html" class="btn btn-primary">Sign Up</a></li>
                     </ul>
                 </nav>
             </div>
@@ -48,9 +48,40 @@
                 <h1 id="booking-heading">Schedule Your Session</h1>
                 <p class="booking-subheading">Select your preferences below to customize your inclusive 1-on-1 fitness experience.</p>
 
-                
+                <!-- Selected Trainer Box Context Header -->
+                <div id="selected-trainer-container" style="display: none;">
+                    <div class="selected-trainer-card">
+                        <div class="avatar-sm" id="trainer-avatar">T</div>
+                        <div>
+                            <h2 id="selected-trainer-name">Trainer Name</h2>
+                            <p id="selected-trainer-specialization">Specialization</p>
+                        </div>
+                    </div>
+                </div>
 
-                <form action="#" method="POST" class="booking-form">
+                <form action="#" method="POST" class="booking-form" id="bookingForm">
+                    
+                    <!-- Step 0: User Info & Trainer -->
+                    <fieldset class="form-fieldset">
+                        <legend>0. Your Information & Trainer</legend>
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" required placeholder="e.g., Alex Morgan">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required placeholder="name@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="trainer">Select Trainer</label>
+                            <select id="trainer" name="trainer" required>
+                                <option value="" disabled selected>Select a trainer...</option>
+                                <option value="Sarah">Sarah (Adaptive Yoga)</option>
+                                <option value="Alex">Alex (Strength HIIT)</option>
+                                <option value="Cosmic Fitness">Cosmic Fitness (Mobility Movement)</option>
+                            </select>
+                        </div>
+                    </fieldset>
                     
                     <!-- Step 1: Session Format -->
                     <fieldset class="form-fieldset">

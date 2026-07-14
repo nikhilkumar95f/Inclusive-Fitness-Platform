@@ -1,4 +1,4 @@
-CREATE TABLE bookings (
+CREATE TABLE IF NOT EXISTS bookings (
 
     id INT AUTO_INCREMENT PRIMARY KEY,
 
@@ -16,7 +16,7 @@ CREATE TABLE bookings (
 
 );
 
-CREATE TABLE trainers (
+CREATE TABLE IF NOT EXISTS trainers (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     specialization VARCHAR(100) NOT NULL,
