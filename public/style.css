@@ -107,6 +107,53 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
+    gap: 16px;
+}
+.header-nav {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    flex-wrap: wrap;
+}
+.profile-header-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--primary-color), #6ea8fe);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: 0 8px 18px rgba(13, 110, 253, 0.18);
+    margin-left: 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    z-index: 5;
+}
+.profile-header-button:hover {
+    transform: translateY(-1px);
+}
+.profile-header-icon {
+    font-size: 1rem;
+}
+.profile-header-text {
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header-nav {
+        margin-left: 0;
+        width: 100%;
+    }
+    .profile-header-button {
+        margin-left: 0;
+        margin-top: 8px;
+    }
 }
 .logo a {
     font-size: 1.5rem;
@@ -412,6 +459,143 @@ footer nav a {
 @media (max-width: 480px) {
     .form-container {
         padding: 25px 15px;
+    }
+}
+
+/* Profile Dashboard */
+.profile-dashboard-main {
+    padding: 40px 20px 60px;
+    background: linear-gradient(180deg, rgba(13, 110, 253, 0.03), transparent 40%);
+}
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+.dashboard-header h1 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    margin-bottom: 10px;
+    color: #0f172a;
+}
+.dashboard-tagline {
+    color: var(--secondary-color);
+    max-width: 720px;
+    margin: 0 auto;
+}
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+.dashboard-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(13, 110, 253, 0.1);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+.card-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+.card-description {
+    color: var(--secondary-color);
+    margin-bottom: 16px;
+}
+.profile-avatar-large {
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), #6ea8fe);
+    color: #ffffff;
+    display: grid;
+    place-items: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 22px rgba(13, 110, 253, 0.22);
+}
+.profile-detail-group {
+    margin-bottom: 14px;
+}
+.detail-label {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6c757d;
+    margin-bottom: 4px;
+}
+.detail-value {
+    font-size: 1rem;
+    color: var(--text-color);
+}
+.preference-update-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.preference-update-form label {
+    font-weight: 600;
+    color: var(--text-color);
+}
+.preference-update-form select {
+    padding: 12px 14px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    background: #ffffff;
+    font-size: 1rem;
+}
+.update-btn {
+    align-self: flex-start;
+}
+.bookings-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.booking-item {
+    padding: 14px 16px;
+    border: 1px solid rgba(13, 110, 253, 0.1);
+    border-left: 4px solid var(--primary-color);
+    border-radius: 10px;
+    background: #f8fbff;
+}
+.booking-item h3 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+.booking-item p {
+    color: var(--secondary-color);
+    font-size: 0.95rem;
+}
+.recommendations-card {
+    margin-top: 24px;
+}
+#recommendationsGrid {
+    margin-top: 10px;
+    gap: 16px;
+}
+.loading-text {
+    color: var(--secondary-color);
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    .profile-dashboard-main {
+        padding: 24px 16px 40px;
+    }
+    .dashboard-card {
+        padding: 20px;
     }
 }
 /*trainer page styles */

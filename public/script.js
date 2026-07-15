@@ -438,6 +438,48 @@ document.querySelectorAll("nav a").forEach(link => {
 });
 
 // ================================
+// User Menu Rendering
+// ================================
+function renderUserMenu() {
+  const menuDiv = document.getElementById('user-menu');
+  const userData = localStorage.getItem('currentUser');
+  const loginLinks = document.querySelectorAll('.nav-link-login');
+  const signUpBtn = document.querySelector('li a.btn-primary'); // first btn-primary link in nav
+  if (menuDiv) {
+    if (userData) {
+      const user = JSON.parse(userData);
+      const displayName = user.name || `${user.firstName || ""} ${user.lastName || ""}`.trim() || "User";
+      menuDiv.innerHTML = `
+        <div class="dropdown">
+          <button class="dropbtn">${displayName} &#9662;</button>
+          <div class="dropdown-content">
+            <a href="profile.html">My Profile</a>
+            <a href="#" id="logoutBtn">Logout</a>
+          </div>
+        </div>`;
+      // Hide login and signup links
+      loginLinks.forEach(el => el.classList.add('hidden'));
+      if (signUpBtn) signUpBtn.classList.add('hidden');
+      const logoutBtn = document.getElementById('logoutBtn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          localStorage.removeItem('currentUser');
+          window.location.reload();
+        });
+      }
+    } else {
+      menuDiv.innerHTML = `
+        <a href="login.html" class="nav-link-login">Log In</a>
+        <a href="sign-up.html" class="btn btn-primary"><span aria-hidden="true">👤</span> Sign Up</a>`;
+      // Ensure login links are visible
+      loginLinks.forEach(el => el.classList.remove('hidden'));
+      if (signUpBtn) signUpBtn.classList.remove('hidden');
+    }
+  }
+}
+window.addEventListener('load', renderUserMenu);
+// ================================
 // Welcome Message
 // ================================
 window.addEventListener("load", () => {
@@ -445,6 +487,98 @@ window.addEventListener("load", () => {
     console.log("Welcome to Inclusive Fitness Platform!");
 
 });
+
+// ================================
+// Profile Dashboard
+// ================================
+const profileDashboard = document.querySelector(".profile-dashboard-main");
+
+if (profileDashboard) {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+    const profileName = document.getElementById("profileName");
+    const profileEmail = document.getElementById("profileEmail");
+    const profileAvatar = document.getElementById("profileAvatarLarge");
+    const preferenceSelect = document.getElementById("dashboard-workout-pref");
+    const preferenceForm = document.getElementById("updatePreferenceForm");
+    const bookingsContainer = document.getElementById("bookingsListContainer");
+    const recommendationsGrid = document.getElementById("recommendationsGrid");
+    const recommendationsDesc = document.getElementById("recommendationsDesc");
+
+    const recommendationMap = {
+        seated: [
+            { title: "Seated Strength Flow", subtitle: "Chair-friendly strength and mobility" },
+            { title: "Gentle Chair Yoga", subtitle: "Breathwork and flexibility" }
+        ],
+        "low-impact": [
+            { title: "Joint-Friendly Mobility", subtitle: "Low strain, high comfort" },
+            { title: "Recovery Stretch Circuit", subtitle: "Calm and restorative" }
+        ],
+        "sensory-calm": [
+            { title: "Low-Sensory Reset", subtitle: "Quiet pacing with optional pauses" },
+            { title: "Mindful Movement", subtitle: "Gentle and predictable" }
+        ],
+        "full-mobility": [
+            { title: "Adaptive HIIT", subtitle: "Visual cues and energetic pacing" },
+            { title: "Full-Range Strength", subtitle: "Built for confidence and motion" }
+        ],
+        "not-sure": [
+            { title: "Explore Everything", subtitle: "A sampler of accessible options" },
+            { title: "Balanced Starter Plan", subtitle: "A mix of strength and calm" }
+        ]
+    };
+
+    const renderProfile = () => {
+        const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const displayName = user.name || "User";
+        const displayEmail = user.email || "user@example.com";
+        const preference = user.preference || "";
+
+        if (profileName) profileName.textContent = displayName;
+        if (profileEmail) profileEmail.textContent = displayEmail;
+        if (profileAvatar) profileAvatar.textContent = displayName.charAt(0).toUpperCase();
+        if (preferenceSelect) preferenceSelect.value = preference;
+
+        if (bookingsContainer) {
+            bookingsContainer.innerHTML = `
+                <div class="card">
+                    <h3>Upcoming Session</h3>
+                    <p>Welcome back! Your next accessible session will appear here once booked.</p>
+                </div>
+            `;
+        }
+
+        if (recommendationsGrid) {
+            const options = recommendationMap[preference] || recommendationMap["not-sure"];
+            recommendationsGrid.innerHTML = options.map(item => `
+                <article class="card">
+                    <h3>${item.title}</h3>
+                    <p>${item.subtitle}</p>
+                </article>
+            `).join("");
+        }
+
+        if (recommendationsDesc) {
+            recommendationsDesc.textContent = preference
+                ? `Based on your preference, these are the classes we recommend for you.`
+                : "Select a preference to see recommendations.";
+        }
+    };
+
+    if (preferenceForm) {
+        preferenceForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const updatedUser = {
+                ...currentUser,
+                preference: preferenceSelect ? preferenceSelect.value : ""
+            };
+            localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+            renderProfile();
+            alert("Preferences updated.");
+        });
+    }
+
+    renderProfile();
+}
 
 // ================================
 // Current Year in Footer

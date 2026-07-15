@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../server");
-const pool = db.promisePool || db;
+const pool = db;
 
 // ==============================
 // GET All Bookings

@@ -189,6 +189,38 @@ app.post("/api/auth/login", async (req, res) => {
   }
 });
 
+// Update Profile Preference Route
+app.put("/api/users/profile", async (req, res) => {
+  try {
+    const { userId, preference } = req.body || {};
+
+    if (!userId || !preference) {
+      return res.status(400).json({ success: false, error: "User ID and preference are required." });
+    }
+
+    await promisePool.query("UPDATE users SET preference = ? WHERE id = ?", [preference, userId]);
+
+    const [rows] = await promisePool.query(
+      "SELECT id, name, email, preference FROM users WHERE id = ?",
+      [userId]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ success: false, error: "User not found." });
+    }
+
+    res.json({
+      success: true,
+      message: "Profile preference updated successfully.",
+      user: rows[0],
+    });
+  } catch (err) {
+    console.error("Profile update error:", err);
+    res.status(500).json({ success: false, error: "Could not update profile preference." });
+  }
+});
+
+
 // Booking and Trainer Routes
 const bookingRoutes = require("./routes/booking");
 app.use("/booking", bookingRoutes);

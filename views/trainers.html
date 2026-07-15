@@ -8,16 +8,42 @@
 </head>
 <body>
 
-    <header class="navbar">
-        <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">Empower<span>Fit</span></a></div> 
-        <nav>
-            <a href="index.html#workouts">Explore</a>
-            <a href="index.html#features">Accessibility Info</a>
-            <a href="join-trainer.html" class="btn-secondary">Join as Trainer</a>
-        </nav>
-    </header>
+    <!-- CSS-Only High Contrast Toggle Trigger -->
+    <input type="checkbox" id="contrast-toggle" class="visually-hidden">
 
-    <main>
+    <!-- Main Wrapper -->
+    <div class="page-wrapper">
+
+        <!-- Skip Link -->
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <!-- Accessibility Utility Bar -->
+        <div class="accessibility-bar" role="region" aria-label="Accessibility Tools">
+            <label for="contrast-toggle" class="contrast-label" tabindex="0" role="button">
+                Toggle High Contrast Mode
+            </label>
+        </div>
+
+        <!-- Header -->
+        <header>
+            <div class="header-container">
+                <div class="logo">
+                    <a href="index.html" aria-label="EmpowerFit Home">EmpowerFit</a>
+                </div>
+                <nav aria-label="Main Navigation">
+                    <ul>
+                        <li><a href="index.html#workouts">Workouts</a></li>
+                        <li><a href="trainers.html">Our Trainers</a></li>
+                        <li><a href="index.html#community">Community</a></li>
+                        <li><a href="join-trainer.html">Join as Trainer</a></li>
+                        <li><a href="login.html" class="nav-link-login">Log In</a></li>
+                        <li><a href="sign-up.html" class="btn btn-primary"><span aria-hidden="true">👤</span> Sign Up</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+    <main id="main-content">
         <section class="hero">
             <div id="oops">
             <h1 style="color:aquamarine;" >Fitness for Every Body.</h1>
@@ -80,6 +106,7 @@
         </div>
     </footer>
 
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

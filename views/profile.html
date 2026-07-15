@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Dashboard | EmpowerFit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- CSS-Only High Contrast Toggle Trigger -->
+    <input type="checkbox" id="contrast-toggle" class="visually-hidden">
+
+    <!-- Main Wrapper -->
+    <div class="page-wrapper">
+
+        <!-- Skip Link -->
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <!-- Accessibility Utility Bar -->
+        <div class="accessibility-bar" role="region" aria-label="Accessibility Tools">
+            <label for="contrast-toggle" class="contrast-label" tabindex="0" role="button">
+                Toggle High Contrast Mode
+            </label>
+        </div>
+
+        <!-- Header -->
+        <header>
+            <div class="header-container">
+                <div class="logo">
+                    <a href="index.html" aria-label="EmpowerFit Home">EmpowerFit</a>
+                </div>
+                <nav aria-label="Main Navigation" class="header-nav">
+                    <ul>
+                        <li><a href="index.html#workouts">Workouts</a></li>
+                        <li><a href="trainers.html">Our Trainers</a></li>
+                        <li><a href="index.html#community">Community</a></li>
+                        <li><a href="join-trainer.html">Join as Trainer</a></li>
+                        <li><a href="login.html" class="nav-link-login">Log In</a></li>
+                        <li><a href="sign-up.html" class="btn btn-primary"><span aria-hidden="true">👤</span> Sign Up</a></li>
+                    </ul>
+                </nav>
+                <a href="profile.html" class="profile-header-button" aria-label="Open profile">
+                    <span class="profile-header-icon">👤</span>
+                    <span class="profile-header-text">Profile</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main id="main-content" class="profile-dashboard-main">
+            <div class="dashboard-container">
+                <header class="dashboard-header">
+                    <h1>Your Fitness Dashboard</h1>
+                    <p class="dashboard-tagline">Manage your preferences, track your bookings, and view your recommended workouts.</p>
+                </header>
+
+                <div class="dashboard-grid">
+                    <!-- Column 1: Account Settings & Preferences -->
+                    <section class="dashboard-card profile-settings-card" aria-labelledby="settings-heading">
+                        <h2 id="settings-heading" class="card-title">👤 Profile Details</h2>
+                        <div class="profile-avatar-large" id="profileAvatarLarge">U</div>
+                        <div class="profile-detail-group">
+                            <span class="detail-label">Name</span>
+                            <strong class="detail-value" id="profileName">Loading...</strong>
+                        </div>
+                        <div class="profile-detail-group">
+                            <span class="detail-label">Email Address</span>
+                            <span class="detail-value" id="profileEmail">Loading...</span>
+                        </div>
+
+                        <form id="updatePreferenceForm" class="preference-update-form">
+                            <div class="form-group">
+                                <label for="dashboard-workout-pref">Your Workout Preference</label>
+                                <select id="dashboard-workout-pref" name="preference">
+                                    <option value="" disabled selected>Select a preference...</option>
+                                    <option value="seated">Seated / Wheelchair-friendly workouts</option>
+                                    <option value="low-impact">Low-impact / Joint-friendly movements</option>
+                                    <option value="sensory-calm">Low-sensory / Neurodivergent-friendly calm sessions</option>
+                                    <option value="full-mobility">Full-mobility / High-intensity routines</option>
+                                    <option value="not-sure">I'd like to explore everything</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary update-btn">Update Preferences</button>
+                        </form>
+                    </section>
+
+                    <!-- Column 2: Scheduled Bookings -->
+                    <section class="dashboard-card bookings-card" aria-labelledby="bookings-heading">
+                        <h2 id="bookings-heading" class="card-title">📅 My Scheduled Sessions</h2>
+                        <p class="card-description">Here are your upcoming 1-on-1 sessions. Please coordinate accessibility needs with your trainers.</p>
+                        
+                        <div class="bookings-list-container" id="bookingsListContainer">
+                            <p class="loading-text">Loading bookings...</p>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Recommendations Section -->
+                <section class="dashboard-card recommendations-card" id="recommendationsSection" aria-labelledby="recommendations-heading">
+                    <h2 id="recommendations-heading" class="card-title">✨ Recommended For You</h2>
+                    <p class="card-description" id="recommendationsDesc">Based on your workout preferences, here are the top matching classes we recommend:</p>
+                    
+                    <div class="grid" id="recommendationsGrid">
+                        <!-- Dynamic Recommended Cards Go Here -->
+                        <p class="loading-text">Select a preference to see recommendations.</p>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-container">
+                <p>&copy; 2026 EmpowerFit Platform. All rights reserved.</p>
+                <nav aria-label="Footer Navigation">
+                    <a href="#privacy">Privacy Policy</a> | 
+                    <a href="#accessibility-statement">Accessibility Statement</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
