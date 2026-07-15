@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../server"); // Export your MySQL connection from server.js
+const db = require("../server");
+const pool = db.promisePool || db;
 
 // ==============================
 // GET All Bookings
@@ -9,7 +10,7 @@ router.get("/", (req, res) => {
 
     const sql = "SELECT * FROM bookings ORDER BY booking_date DESC";
 
-    db.query(sql, (err, result) => {
+    pool.query(sql, (err, result) => {
 
         if (err) {
             return res.status(500).json({
@@ -59,7 +60,7 @@ router.post("/", (req, res) => {
         VALUES (?,?,?,?,?)
     `;
 
-    db.query(
+    pool.query(
         sql,
         [
             fullName,
@@ -71,20 +72,17 @@ router.post("/", (req, res) => {
         (err, result) => {
 
             if (err) {
-
+                console.error("Booking insert error:", err);
                 return res.status(500).json({
                     success: false,
                     message: "Booking Failed"
                 });
-
             }
 
             res.status(201).json({
-
                 success: true,
                 message: "Booking Successful!",
                 bookingId: result.insertId
-
             });
 
         }
@@ -99,7 +97,7 @@ router.delete("/:id", (req, res) => {
 
     const id = req.params.id;
 
-    db.query(
+    pool.query(
         "DELETE FROM bookings WHERE id=?",
         [id],
         (err) => {

@@ -2,6 +2,7 @@
 require("dotenv").config();
 
 const path = require("path");
+const crypto = require("crypto");
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2");
@@ -35,7 +36,12 @@ const promisePool = pool.promise();
 // Make DB available in routes
 app.set("db", pool);
 
+const hashPassword = (password) =>
+  crypto.createHash("sha256").update(password).digest("hex");
+
 module.exports = pool;
+module.exports.app = app;
+module.exports.promisePool = promisePool;
 
 // Check database connection & initialize tables
 const fs = require("fs");
@@ -102,6 +108,87 @@ app.get("/api/trainers", async (req, res) => {
   }
 });
 
+// Authentication Routes
+app.post("/api/auth/signup", async (req, res) => {
+  try {
+    const { name, email, password, preference } = req.body || {};
+
+    if (!name || !email || !password) {
+      return res.status(400).json({ success: false, error: "Name, email, and password are required." });
+    }
+
+    if (password.length < 8 || !/\d/.test(password)) {
+      return res.status(400).json({ success: false, error: "Password must be at least 8 characters long and include a number." });
+    }
+
+    const normalizedEmail = email.toLowerCase().trim();
+    const [existingUsers] = await promisePool.query("SELECT id FROM users WHERE email = ?", [normalizedEmail]);
+
+    if (existingUsers.length > 0) {
+      return res.status(409).json({ success: false, error: "An account with that email already exists." });
+    }
+
+    const [result] = await promisePool.query(
+      "INSERT INTO users (name, email, password_hash, preference) VALUES (?, ?, ?, ?)",
+      [name.trim(), normalizedEmail, hashPassword(password), preference || null]
+    );
+
+    res.status(201).json({
+      success: true,
+      message: "Account created successfully.",
+      user: {
+        id: result.insertId,
+        name: name.trim(),
+        email: normalizedEmail,
+        preference: preference || null,
+      },
+    });
+  } catch (err) {
+    console.error("Signup error:", err);
+    res.status(500).json({ success: false, error: "Could not create account." });
+  }
+});
+
+app.post("/api/auth/login", async (req, res) => {
+  try {
+    const { email, password } = req.body || {};
+
+    if (!email || !password) {
+      return res.status(400).json({ success: false, error: "Email and password are required." });
+    }
+
+    const normalizedEmail = email.toLowerCase().trim();
+    const [rows] = await promisePool.query(
+      "SELECT id, name, email, password_hash, preference FROM users WHERE email = ?",
+      [normalizedEmail]
+    );
+
+    if (rows.length === 0) {
+      return res.status(401).json({ success: false, error: "Invalid email or password." });
+    }
+
+    const user = rows[0];
+
+    if (hashPassword(password) !== user.password_hash) {
+      return res.status(401).json({ success: false, error: "Invalid email or password." });
+    }
+
+    res.json({
+      success: true,
+      message: "Login successful.",
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        preference: user.preference,
+      },
+    });
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).json({ success: false, error: "Could not log in." });
+  }
+});
+
 // Booking and Trainer Routes
 const bookingRoutes = require("./routes/booking");
 app.use("/booking", bookingRoutes);
@@ -125,6 +212,8 @@ app.use((err, req, res, next) => {
 });
 
 // ---------------- Start Server ----------------
-app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running at http://localhost:${PORT}`);
+  });
+}

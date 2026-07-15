@@ -70,38 +70,80 @@ document.querySelectorAll(".password").forEach(input => {
 // ================================
 // Login & Signup Validation
 // ================================
-const form = document.querySelector("form");
+const signupForm = document.getElementById("signup-form");
+const loginForm = document.getElementById("login-form");
 
-if (form) {
+const validateRequiredFields = (form) => {
+    const requiredFields = form.querySelectorAll("[required]");
+    let valid = true;
 
-    form.addEventListener("submit", function (e) {
+    requiredFields.forEach(input => {
+        const isValid = input.type === "checkbox" ? input.checked : input.value.trim() !== "";
 
-        const required = form.querySelectorAll("[required]");
-
-        let valid = true;
-
-        required.forEach(input => {
-
-            if (input.value.trim() === "") {
-
-                valid = false;
-                input.style.border = "2px solid red";
-
-            } else {
-
-                input.style.border = "1px solid #ccc";
-
-            }
-
-        });
-
-        if (!valid) {
-            e.preventDefault();
-            alert("Please fill all required fields.");
+        if (!isValid) {
+            valid = false;
+            input.style.border = "2px solid red";
+        } else {
+            input.style.border = "1px solid #ccc";
         }
-
     });
 
+    return valid;
+};
+
+const handleAuthSubmit = (form, endpoint, successUrl, successMessage) => {
+    if (!form) return;
+
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        if (!validateRequiredFields(form)) {
+            alert("Please fill all required fields.");
+            return;
+        }
+
+        const payload = Object.fromEntries(new FormData(form).entries());
+        const submitButton = form.querySelector("button[type='submit']");
+
+        if (submitButton) {
+            submitButton.disabled = true;
+        }
+
+        try {
+            const response = await fetch(endpoint, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            });
+
+            const data = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                throw new Error(data.error || "Authentication failed.");
+            }
+
+            if (data.user) {
+                localStorage.setItem("currentUser", JSON.stringify(data.user));
+            }
+
+            alert(data.message || successMessage);
+            window.location.assign(successUrl);
+        } catch (error) {
+            alert(error.message || "Authentication failed.");
+        } finally {
+            if (submitButton) {
+                submitButton.disabled = false;
+            }
+        }
+    });
+};
+
+if (signupForm) {
+    handleAuthSubmit(signupForm, "/api/auth/signup", "login.html", "Account created successfully.");
+}
+
+if (loginForm) {
+    handleAuthSubmit(loginForm, "/api/auth/login", "index.html", "Login successful.");
 }
 
 // ================================
